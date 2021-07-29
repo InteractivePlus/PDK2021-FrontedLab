@@ -2,7 +2,7 @@
 
 ## 项目说明 | Introduction
 此项目是形随意动公用开发套件PDK（Public Development Kit）的前端部分。目前为单页面应用。  
-技术栈：React，antd pro
+技术栈：React，antd pro  
 接口文档：https://github.com/InteractivePlus/InteractivePDK2021-DesignDoc/blob/master/Backend/API.md  
 
 
