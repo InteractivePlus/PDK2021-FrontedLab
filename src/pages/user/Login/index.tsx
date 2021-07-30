@@ -90,7 +90,7 @@ const Login: React.FC = () => {
           <div className={styles.header}>
             <Link to="/">
               <img alt="logo" className={styles.logo} src="/logo.png" />
-              <span className={styles.title}>Ant Design</span>
+              <span className={styles.title}>开放接口平台</span>
             </Link>
           </div>
           <div className={styles.desc}>
@@ -296,6 +296,9 @@ const Login: React.FC = () => {
               </a>
             </div>
           </ProForm>
+          <Link className={styles.login} to="/user/register">
+            <span>注册账户</span>
+          </Link>
           <Space className={styles.other}>
           </Space>
         </div>
