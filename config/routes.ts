@@ -12,10 +12,11 @@
             component: './user/Login',
           },
           {
-            name: 'signup',
-            path: '/user/signup',
-            component: './user/SignUp',
+            name: 'register',
+            path: '/user/register',
+            component: './user/Register',
           },
+
         ],
       },
       {
@@ -55,29 +56,29 @@
     component: './Dashboard',
   },
   {
-    name: 'app.AuthorizedApp',
-    icon: '',
-    path: '/authorizedapp',
-    component: './app/AuthorizedApp',
+    path: '/app',
+    icon: 'appstore',
+    name: 'app',
+    routes: [
+      {
+        name: 'AuthorizedApp',
+        path: '/app/authorizedapp',
+        component: './app/AuthorizedApp',
+      },
+      {
+        name: 'CreatedApp',
+        path: '/app/createdapp',
+        component: './app/CreatedApp',
+      },
+    ],
   },
   {
-    name: 'app.CreatedApp',
-    icon: '',
-    path: '/createdapp',
-    component: './app/CreatedApp',
+    name: 'account.Settings',
+    icon: 'user',
+    path: '/accountsettings',
+    component: './account/Settings',
   },
-  {
-    name: 'account.BasicSettings',
-    icon: '',
-    path: '/basicsettings',
-    component: './account/BasicSettings',
-  },
-  {
-    name: 'account.SecuritySettings',
-    icon: '',
-    path: '/securitysettings',
-    component: './account/SecuritySettings',
-  },
+  
   {
     path: '/',
     redirect: '/dashboard',

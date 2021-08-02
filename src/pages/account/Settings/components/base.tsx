@@ -1,5 +1,5 @@
 import React from 'react';
-// import { UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined } from '@ant-design/icons';
 import { Button, Input, Upload, message } from 'antd';
 import ProForm, {
   ProFormDependency,
@@ -49,17 +49,14 @@ const AvatarView = ({ avatar }: { avatar: string }) => (
     <div className={styles.avatar}>
       <img src={avatar} alt="avatar" />
     </div>
-    {/* <Upload showUploadList={false}>
+    <Upload showUploadList={false}>
       <div className={styles.button_view}>
         <Button>
           <UploadOutlined />
           更换头像
         </Button>
       </div>
-    </Upload> */}
-    <Upload {...props}>
-    <Button icon={<UploadOutlined />}>Click to Upload</Button>
-  </Upload>,
+    </Upload>
   </>
 );
 
@@ -217,31 +214,7 @@ const BaseView: React.FC = () => {
                   }}
                 </ProFormDependency>
               </ProForm.Group>
-              <ProFormText
-                width="md"
-                name="address"
-                label="街道地址"
-                rules={[
-                  {
-                    required: true,
-                    message: '请输入您的街道地址!',
-                  },
-                ]}
-              />
-              <ProFormFieldSet
-                name="phone"
-                label="联系电话"
-                rules={[
-                  {
-                    required: true,
-                    message: '请输入您的联系电话!',
-                  },
-                  { validator: validatorPhone },
-                ]}
-              >
-                <Input className={styles.area_code} />
-                <Input className={styles.phone_number} />
-              </ProFormFieldSet>
+              
             </ProForm>
           </div>
           <div className={styles.right}>

@@ -74,3 +74,11 @@ npx create-react-app appdemo --template typescript
 2. 如果有奇怪的问题，优先考虑删除node_modules，然后重新install
 
 3. 打包分析
+
+4. 出现Error: Module "./antd/es/xxx/style" does not exist in container.
+解决方案：https://github.com/ant-design/ant-design-pro/issues/8842
+```
+git add .
+git clean -dfx
+yarn
+```
