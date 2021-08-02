@@ -66,9 +66,9 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     },
     links: isDev
       ? [
-          <Link to="https://github.com/InteractivePlus/InteractivePDK2021-DesignDoc" target="_blank">
+          <Link to="/umi/plugin/openapi" target="_blank">
             <LinkOutlined />
-            <span>OpenAPI 文档</span>
+            <span>Swagger API文档</span>
           </Link>,
           <Link to="/~docs">
             <BookOutlined />
