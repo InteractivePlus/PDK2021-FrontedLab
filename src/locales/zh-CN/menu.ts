@@ -50,8 +50,10 @@ export default {
   'menu.editor.flow': '流程编辑器',
   'menu.editor.mind': '脑图编辑器',
   'menu.editor.koni': '拓扑编辑器',
+  'menu.app': '应用管理',
   'menu.app.AuthorizedApp': '已授权应用',
   'menu.app.CreatedApp': '个人开发应用',
+  'menu.account.Settings': '个人设置',
   'menu.account.BasicSettings': '基本设置',
   'menu.account.SecuritySettings': '安全设置',
 };
