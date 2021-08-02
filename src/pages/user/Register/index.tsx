@@ -1,12 +1,20 @@
-import type { FC } from 'react';
+import React from 'react';
 import { useState, useEffect } from 'react';
-import { Form, Button, Col, Input, Popover, Progress, Row, Select, message } from 'antd';
+import {
+  LockOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
+import { Form, Button, Col, Input, Popover, Progress, Row, Select, message, Alert, Space, Tabs } from 'antd';
 import type { Store } from 'antd/es/form/interface';
-import { Link, useRequest, history } from 'umi';
+import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
+import { useIntl, Link, history, useRequest, FormattedMessage, SelectLang, useModel } from 'umi';
+
+import Footer from '@/components/Footer';
+
 import type { StateType } from './service';
 import { fakeRegister } from './service';
 
-import styles from './style.less';
+import styles from './index.less';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -40,7 +48,7 @@ const passwordProgressMap: {
   poor: 'exception',
 };
 
-const Register: FC = () => {
+const Register: React.FC = () => {
   const [count, setCount]: [number, any] = useState(0);
   const [visible, setVisible]: [boolean, any] = useState(false);
   const [prefix, setPrefix]: [string, any] = useState('86');
@@ -48,6 +56,8 @@ const Register: FC = () => {
   const confirmDirty = false;
   let interval: number | undefined;
   const [form] = Form.useForm();
+
+  const intl = useIntl();
 
   useEffect(
     () => () => {
@@ -147,138 +157,140 @@ const Register: FC = () => {
   };
 
   return (
-    <div className={styles.main}>
-      <h3>注册</h3>
-      <Form form={form} name="UserRegister" onFinish={onFinish}>
-        <FormItem
-          name="mail"
-          rules={[
-            {
-              required: true,
-              message: '请输入邮箱地址!',
-            },
-            {
-              type: 'email',
-              message: '邮箱地址格式错误!',
-            },
-          ]}
-        >
-          <Input size="large" placeholder="邮箱" />
-        </FormItem>
-        <Popover
-          getPopupContainer={(node) => {
-            if (node && node.parentNode) {
-              return node.parentNode as HTMLElement;
-            }
-            return node;
-          }}
-          content={
-            visible && (
-              <div style={{ padding: '4px 0' }}>
-                {passwordStatusMap[getPasswordStatus()]}
-                {renderPasswordProgress()}
-                <div style={{ marginTop: 10 }}>
-                  <span>请至少输入 6 个字符。请不要使用容易被猜到的密码。</span>
-                </div>
-              </div>
-            )
-          }
-          overlayStyle={{ width: 240 }}
-          placement="right"
-          visible={visible}
-        >
-          <FormItem
-            name="password"
-            className={
-              form.getFieldValue('password') &&
-              form.getFieldValue('password').length > 0 &&
-              styles.password
-            }
-            rules={[
-              {
-                validator: checkPassword,
+    <div className={styles.container}>
+      <div className={styles.lang} data-lang>
+        {SelectLang && <SelectLang />}
+      </div>
+      <div className={styles.content}>
+        <div className={styles.top}>
+          <div className={styles.header}>
+            <Link to="/">
+              <img alt="logo" className={styles.logo} src="/logo.png" />
+              <span className={styles.title}>注册您的账号</span>
+            </Link>
+          </div>
+          <div className={styles.desc}>
+            {intl.formatMessage({ id: 'pages.layouts.userLayout.title' })}
+          </div>
+        </div>
+
+        <div className={styles.main}>
+          <ProForm
+            initialValues={{
+              autoLogin: true,
+            }}
+            submitter={{
+              searchConfig: {
+                submitText: intl.formatMessage({
+                  id: 'pages.register.submit',
+                  defaultMessage: '注册',
+                }),
               },
-            ]}
+              render: (_, dom) => dom.pop(),
+              submitButtonProps: {
+                loading: submitting,
+                size: 'large',
+                style: {
+                  width: '100%',
+                },
+              },
+            }}
+            onFinish={async (values) => {
+              // handleSubmit(values as API.LoginParams);
+            }}
           >
-            <Input size="large" type="password" placeholder="至少6位密码，区分大小写" />
-          </FormItem>
-        </Popover>
-        <FormItem
-          name="confirm"
-          rules={[
-            {
-              required: true,
-              message: '确认密码',
-            },
-            {
-              validator: checkConfirm,
-            },
-          ]}
-        >
-          <Input size="large" type="password" placeholder="确认密码" />
-        </FormItem>
-        {/* <InputGroup compact>
-          <Select size="large" value={prefix} onChange={changePrefix} style={{ width: '20%' }}>
-            <Option value="86">+86</Option>
-            <Option value="87">+87</Option>
-          </Select>
-          <FormItem
-            style={{ width: '80%' }}
-            name="mobile"
-            rules={[
-              {
-                required: true,
-                message: '请输入手机号!',
-              },
-              {
-                pattern: /^\d{11}$/,
-                message: '手机号格式错误!',
-              },
-            ]}
-          >
-            <Input size="large" placeholder="手机号" />
-          </FormItem>
-        </InputGroup> */}
-        {/* <Row gutter={8}>
-          <Col span={16}>
-            <FormItem
-              name="captcha"
+            <ProFormText
+              name="username"
+              fieldProps={{
+                size: 'large',
+                prefix: <UserOutlined className={styles.prefixIcon} />,
+              }}
+              placeholder={intl.formatMessage({
+                id: 'pages.register.username.email.placeholder',
+                defaultMessage: '邮箱',
+              })}
               rules={[
                 {
                   required: true,
-                  message: '请输入验证码!',
+                  message: (
+                    <FormattedMessage
+                      id="pages.register.username.email.required"
+                      defaultMessage="请输入用户名!"
+                    />
+                  ),
                 },
               ]}
-            >
-              <Input size="large" placeholder="验证码" />
-            </FormItem>
-          </Col>
-          <Col span={8}>
-            <Button
-              size="large"
-              disabled={!!count}
-              className={styles.getCaptcha}
-              onClick={onGetCaptcha}
-            >
-              {count ? `${count} s` : '获取验证码'}
-            </Button>
-          </Col>
-        </Row> */}
-        <FormItem>
-          <Button
-            size="large"
-            loading={submitting}
-            className={styles.submit}
-            type="primary"
-            htmlType="submit"
-          >
-            <span>注册</span>
-          </Button>
+            />
+            <ProFormText.Password
+              name="password"
+              fieldProps={{
+                size: 'large',
+                prefix: <LockOutlined className={styles.prefixIcon} />,
+              }}
+              placeholder={intl.formatMessage({
+                id: 'pages.register.password.placeholder',
+                defaultMessage: '密码',
+              })}
+              rules={[
+                {
+                  required: true,
+                  message: (
+                    <FormattedMessage
+                      id="pages.register.password.required"
+                      defaultMessage="请输入密码！"
+                    />
+                  ),
+                },
+              ]}
+            />
+            <ProFormText.Password
+              name="confirm"
+              fieldProps={{
+                size: 'large',
+                prefix: <LockOutlined className={styles.prefixIcon} />,
+              }}
+              placeholder={intl.formatMessage({
+                id: 'pages.register.password.placeholder',
+                defaultMessage: '密码',
+              })}
+              rules={[
+                {
+                  required: true,
+                  message: (
+                    <FormattedMessage
+                      id="pages.register.password.required"
+                      defaultMessage="请输入密码！"
+                    />
+                  ),
+                },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue('password') === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(
+                      new Error('两次输入的密码不一致！'),
+                    );
+                  },
+                }),
+              ]}
+            />
+          </ProForm>
+          
+          <div>
+            注册即代表您同意
+            <Link to="/">
+              <span>用户协议</span>
+            </Link>
+          </div>
+          
           <Link className={styles.login} to="/user/login">
-            <span>使用已有账户登录</span>
+            <span>登录账户</span>
           </Link>
-        </FormItem>
-      </Form>
+          <Space className={styles.other}></Space>
+        </div>
+      </div>
+      <Footer />
     </div>
   );
 };
