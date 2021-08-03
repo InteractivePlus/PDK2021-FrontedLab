@@ -33,20 +33,41 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 #Fuck you Ant pro
-.ant-radio-button-wrapper-checked {
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):active {
+  background-color: rgb(201, 234, 251) !important;
   border-width: 0 0 3px 0 !important;
   border-style: solid;
-  background-color: rgb(201, 234, 251) !important;
- 
   border-color: rgb(36, 122, 207) !important;
+  color: rgb(27, 133, 221) !important;
+  transition-delay: 0.07s;
+}
+.ant-radio-button-wrapper-checked {
+  background-color: rgb(201, 234, 251) !important;
+  border-width: 0 0 3px 0 !important;
+  border-style: solid;
+  border-color: rgb(36, 122, 207) !important;
+  color: rgb(27, 133, 221) !important;
+  transition-delay: 0.07s;
 }
 
+.ant-radio-button-wrapper:hover {
+  background-color: rgb(201, 234, 251) !important;
+  color: rgb(27, 133, 221) !important;
+  transition-delay: 0.03s;
+}
+.ant-radio-group {
+  border-left: none !important;
+}
+
+/*
 .ant-radio-button-checked  {
+  background-color: rgb(201, 234, 251) !important;
   border-width: 0 0 3px 0 !important;
   border-style: solid;
-  background-color: rgb(201, 234, 251) !important;
   border-color: rgb(36, 122, 207) !important;
-}
+  color: rgb(27, 133, 221) !important;
+  transition-delay: 0.07s;
+}*/
 .ant-btn {
   background-color: #ebebeb;
   border-width: 0 0 3px 0 !important;
@@ -54,14 +75,29 @@ body {
   color: #000;
 }
 .ant-btn:hover{
+
+  background-color: rgb(201, 234, 251) !important;
+
+  transition-delay: 0.03s;
+}
+.ant-radio-group-outline label {
+  background-color: #ebebeb;
+  border-width: 0 0 3px 0 !important;
+  border-color: #ebebeb;
+  color: #000;
+}
+.ant-btn:focus {
   border-width: 0 0 3px 0 !important;
   border-style: solid;
-  background-color: rgb(201, 234, 251) !important;
   border-color: rgb(36, 122, 207) !important;
   color: rgb(27, 133, 221) !important;
   transition-delay: 0.07s;
+
 }
 .ant-input-group input {
+  background-color: #ebebeb !important;
+}
+.ant-radio-button-wrapper-checked.ant-radio-button-wrapper-disabled:not(:first-child)::before {
   background-color: #ebebeb !important;
 }
 
@@ -74,7 +110,7 @@ body {
 .ant-input:focus {
   border-color: #ebebeb !important;
 }
-.ant-radio-group  .ant-btn {
+.ant-radio-group  label {
   margin-left: 2px;
   margin-right: 2px;
 }
