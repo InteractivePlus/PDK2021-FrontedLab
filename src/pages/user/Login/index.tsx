@@ -11,8 +11,8 @@ import React, { useState } from 'react';
 import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
 import { useIntl, Link, history, FormattedMessage, SelectLang, useModel } from 'umi';
 import Footer from '@/components/Footer';
-import { login } from '@/services/ant-design-pro/api';
-import { getFakeCaptcha } from '@/services/ant-design-pro/login';
+// import { login } from '@/services/ant-design-pro/api';
+// import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 
 import styles from './index.less';
 
@@ -49,33 +49,33 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (values: API.LoginParams) => {
     setSubmitting(true);
-    try {
-      // 登录
-      const msg = await login({ ...values, type });
-      if (msg.status === 'ok') {
-        const defaultLoginSuccessMessage = intl.formatMessage({
-          id: 'pages.login.success',
-          defaultMessage: '登录成功！',
-        });
-        message.success(defaultLoginSuccessMessage);
-        await fetchUserInfo();
-        /** 此方法会跳转到 redirect 参数所在的位置 */
-        if (!history) return;
-        const { query } = history.location;
-        const { redirect } = query as { redirect: string };
-        history.push(redirect || '/');
-        return;
-      }
-      // 如果失败去设置用户错误信息
-      setUserLoginState(msg);
-    } catch (error) {
-      const defaultLoginFailureMessage = intl.formatMessage({
-        id: 'pages.login.failure',
-        defaultMessage: '登录失败，请重试！',
-      });
+    // try {
+    //   // 登录
+    //   // const msg = await login({ ...values, type });
+    //   if (msg.status === 'ok') {
+    //     const defaultLoginSuccessMessage = intl.formatMessage({
+    //       id: 'pages.login.success',
+    //       defaultMessage: '登录成功！',
+    //     });
+    //     message.success(defaultLoginSuccessMessage);
+    //     await fetchUserInfo();
+    //     /** 此方法会跳转到 redirect 参数所在的位置 */
+    //     if (!history) return;
+    //     const { query } = history.location;
+    //     const { redirect } = query as { redirect: string };
+    //     history.push(redirect || '/');
+    //     return;
+    //   }
+    //   // 如果失败去设置用户错误信息
+    //   setUserLoginState(msg);
+    // } catch (error) {
+    //   const defaultLoginFailureMessage = intl.formatMessage({
+    //     id: 'pages.login.failure',
+    //     defaultMessage: '登录失败，请重试！',
+    //   });
 
-      message.error(defaultLoginFailureMessage);
-    }
+    //   message.error(defaultLoginFailureMessage);
+    // }
     setSubmitting(false);
   };
   const { status, type: loginType } = userLoginState;
@@ -268,13 +268,13 @@ const Login: React.FC = () => {
                     },
                   ]}
                   onGetCaptcha={async (phone) => {
-                    const result = await getFakeCaptcha({
-                      phone,
-                    });
-                    if (result === false) {
-                      return;
-                    }
-                    message.success('获取验证码成功！验证码为：1234');
+                    // const result = await getFakeCaptcha({
+                    //   phone,
+                    // });
+                    // if (result === false) {
+                    //   return;
+                    // }
+                    // message.success('获取验证码成功！验证码为：1234');
                   }}
                 />
               </>

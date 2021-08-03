@@ -126,9 +126,9 @@ export const BasicList: FC = () => {
   const extraContent = (
     <div className={styles.extraContent}>
       <RadioGroup defaultValue="all">
-        <RadioButton  value="all">全部</RadioButton >
-        <RadioButton  value="progress">进行中</RadioButton >
-        <RadioButton  value="waiting">等待中</RadioButton >
+        <RadioButton value="all">全部</RadioButton>
+        <RadioButton value="progress">进行中</RadioButton>
+        <RadioButton value="waiting">等待中</RadioButton>
       </RadioGroup>
       <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={() => ({})} />
     </div>

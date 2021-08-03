@@ -2,12 +2,12 @@
 /* eslint-disable */
 import { request } from 'umi';
 
-/** Create user This can only be done by the logged in user. POST /user */
+/** 注册用户 注册用户 POST /user */
 export async function createUser(
   params: {
     // path
   },
-  body: API.User,
+  body: { username?: string; email?: string; password?: string; captcha_id?: string },
   options?: { [key: string]: any },
 ) {
   const { ...queryParams } = params;
