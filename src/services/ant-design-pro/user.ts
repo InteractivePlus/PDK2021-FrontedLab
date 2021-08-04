@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { request } from 'umi';
 
-/** 注册用户 注册用户 POST /user */
+/** 注册用户 注册用户 POST /api/user */
 export async function createUser(
   params: {
     // path
@@ -11,7 +11,7 @@ export async function createUser(
   options?: { [key: string]: any },
 ) {
   const { ...queryParams } = params;
-  return request<any>('/user', {
+  return request<any>('/api/user', {
     method: 'POST',
     params: { ...queryParams },
     data: body,

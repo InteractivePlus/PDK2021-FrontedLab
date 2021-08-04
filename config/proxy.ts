@@ -6,26 +6,27 @@
  * For details, please see
  * https://pro.ant.design/docs/deploy
  */
+// 需要重定向/api到/
 export default {
   dev: {
     '/api/': {
-      target: 'https://preview.pro.ant.design',
+      target: 'https://api.interactivepdk.com/',
       changeOrigin: true,
-      pathRewrite: { '^': '' },
+      pathRewrite: { '^/api': '' },
     },
   },
   test: {
     '/api/': {
-      target: 'https://preview.pro.ant.design',
+      target: 'https://api.interactivepdk.com/',
       changeOrigin: true,
-      pathRewrite: { '^': '' },
+      pathRewrite: { '^/api': '' },
     },
   },
   pre: {
     '/api/': {
-      target: 'your pre url',
+      target: 'https://api.interactivepdk.com/',
       changeOrigin: true,
-      pathRewrite: { '^': '' },
+      pathRewrite: { '^/api': '' },
     },
   },
 };
