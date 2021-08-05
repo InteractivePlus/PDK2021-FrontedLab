@@ -59,7 +59,7 @@ vscode用户可参考以下配置，修改`launch.json`实现Chrome跨域调试�
 
 
 ### 特别注意 | Additionally
-***请不要使用npm install添加额外库，会出现兼容性问题。***
+**请不要使用npm install添加额外库，会出现兼容性问题。**
 
 正确添加方法：
 ```
