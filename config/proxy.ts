@@ -7,6 +7,7 @@
  * https://pro.ant.design/docs/deploy
  */
 // 需要重定向/api到/
+// 部署后nginx端口转发
 export default {
   dev: {
     '/api/': {

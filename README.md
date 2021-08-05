@@ -14,7 +14,7 @@
 
 ### 环境说明
 该版本可正常运行，若使用高版本出现问题，请提交issue，我们将及时跟进。  
-- node 12.18
+- node 14.17
 - yarn 1.22
 
 ### 初始化
@@ -30,6 +30,11 @@ yarn start
 ### 生产模式
 ```
 yarn build
+```
+
+### 根据Swagger接口文档生成代码
+```
+yarn openapi
 ```
 
 ### 补充
@@ -71,11 +76,13 @@ vscode用户可参考以下配置，修改`launch.json`实现Chrome跨域调试�
 npm install -g create-react-app
 npx create-react-app appdemo --template typescript
 ```  
-2. 如果有奇怪的问题，优先考虑删除node_modules，然后重新install
+2. 如果有奇怪的问题：
+- 检查node版本是否匹配
+- 删除node_modules，然后重新install
 
 3. 打包分析
 
-4. 出现Error: Module "./antd/es/xxx/style" does not exist in container.
+4. 出现Error: Module "./antd/es/xxx/style" does not exist in container.  
 解决方案：https://github.com/ant-design/ant-design-pro/issues/8842
 ```
 git add .

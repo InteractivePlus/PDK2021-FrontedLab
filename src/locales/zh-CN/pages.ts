@@ -30,6 +30,8 @@ export default {
   'pages.register.password.placeholder': '密码',
   'pages.register.password.required': '请输入密码！',
   'pages.register.submit': '注册',
+  'pages.register.failure': '注册失败，请重试！',
+  'pages.register.success': '注册成功',
   'pages.welcome.advancedComponent': '高级表格',
   'pages.welcome.link': '欢迎使用',
   'pages.welcome.advancedLayout': '高级布局',
