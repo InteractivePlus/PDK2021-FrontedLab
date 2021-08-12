@@ -8,9 +8,8 @@ import {
 } from '@ant-design/icons';
 import { Form, Button, Col, Input, Popover, Progress, Row, Select, message, Alert, Space, Tabs } from 'antd';
 import { Image, Spin } from 'antd';
-import type { FormInstance } from 'antd';
 import type { Store } from 'antd/es/form/interface';
-import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText, ProFormSelect, ProFormRadio   } from '@ant-design/pro-form';
+import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText, } from '@ant-design/pro-form';
 import { useIntl, Link, history, useRequest, FormattedMessage, SelectLang, useModel } from 'umi';
 
 import Footer from '@/components/Footer';
@@ -24,9 +23,7 @@ import { getCaptcha } from '@/services/ant-design-pro/imgcaptcha';
 
 import styles from './index.less';
 
-const FormItem = Form.Item;
-const { Option } = Select;
-const InputGroup = Input.Group;
+
 
 const passwordStatusMap = {
   ok: (
@@ -66,6 +63,7 @@ const Register: React.FC = () => {
   let interval: number | undefined;
 
   const [form] = Form.useForm();
+  const [isCaptchaValidated, setCaptchaValidated] = useState<boolean>(false);
 
   const intl = useIntl();
 
@@ -166,10 +164,12 @@ const Register: React.FC = () => {
     setSubmitting(true);
     try {
       // 如果有confirmpwd属性，需要删除，不作为提交参数
-      // if(values['confirmpwd'])
-      //   delete values['confirmpwd'];
+      const registerFormData = JSON.parse(JSON.stringify(form.getFieldsValue(true)));
+      if (registerFormData['confirmpwd']) {
+        delete registerFormData['confirmpwd'];
+      }
 
-      console.log(form.getFieldsValue(true));
+      console.log(registerFormData);
       // const msg = await login({ ...values, type });
       // if (msg.status === 'ok') {
       //   const defaultloginSuccessMessage = intl.formatMessage({
@@ -229,6 +229,7 @@ const Register: React.FC = () => {
                 style: {
                   width: '100%',
                 },
+                disabled: !isCaptchaValidated
               },
             }}
             onFinish={async (values) => {
@@ -255,6 +256,7 @@ const Register: React.FC = () => {
                       defaultMessage="请输入用户名!"
                     />
                   ),
+                  whitespace: false
                 },
               ]}
             />
@@ -278,6 +280,7 @@ const Register: React.FC = () => {
                     />
                   ),
                 },
+                { type: 'email', message: '这不是一个正确的电子邮箱！' },
               ]}
             />
             <ProFormText.Password
@@ -302,8 +305,9 @@ const Register: React.FC = () => {
                 },
               ]}
             />
+            {/* 如果不给name就不验证 */}
             <ProFormText.Password
-              // name="confirmpwd"
+              name="confirmpwd"
               fieldProps={{
                 size: 'large',
                 prefix: <LockOutlined className={styles.prefixIcon} />,
@@ -334,7 +338,12 @@ const Register: React.FC = () => {
             />
             
             <Form.Item>
-              <FormTextCaptcha form={form} onChange={(e: any) => { }}/>
+              <FormTextCaptcha form={form}
+                onChange={(e: any) => { }}
+                onValidate={() => {
+                  setCaptchaValidated(true);
+                }}
+              />
             </Form.Item>
           </ProForm>
 

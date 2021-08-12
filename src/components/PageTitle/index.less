@@ -1,0 +1,15 @@
+@import '~antd/es/style/themes/default.less';
+
+// 验证码图片Container
+.captchaimgContainer {
+  padding: 4px;
+  float: center;
+  overflow: hidden;
+
+  // 调整里面spin的样式，不然高度超过40px
+  :global {
+    .ant-spin-container {
+      height: 32px;
+    }
+  }
+}
